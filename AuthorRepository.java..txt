@@ -1,0 +1,34 @@
+package com.library.repository;
+
+import com.library.entity.Author;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
+
+@Repository
+public interface AuthorRepository extends JpaRepository<Author, Long> {
+
+    // Find author by exact name
+    Optional<Author> findByAuthorName(String authorName);
+
+    // Check if author exists
+    boolean existsByAuthorName(String authorName);
+
+    // Search authors by name
+    List<Author> findByAuthorNameContainingIgnoreCase(String authorName);
+
+    // Search authors by nationality
+    List<Author> findByNationalityContainingIgnoreCase(String nationality);
+
+    // Search by name OR nationality
+    List<Author> findByAuthorNameContainingIgnoreCaseOrNationalityContainingIgnoreCase(
+            String authorName,
+            String nationality
+    );
+
+    // Search by biography
+    List<Author> findByBiographyContainingIgnoreCase(String biography);
+
+}
